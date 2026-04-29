@@ -1,0 +1,36 @@
+{
+  "name": "soroban-escrow-database",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared database for the soroban-escrow-notifier and soroban-escrow-dashboard projects.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "migrate": "NODE_OPTIONS='--loader ts-node/esm' ts-node ./src/migrate.ts",
+    "migrate:down": "MIGRATE_OPTION=down NODE_OPTIONS='--loader ts-node/esm' ts-node ./src/migrate.ts",
+    "migrate:list": "MIGRATE_OPTION=list NODE_OPTIONS='--loader ts-node/esm' ts-node ./src/migrate.ts",
+    "generate-schema": "kysely-codegen --dialect postgres --out-file ./src/schema.ts"
+  },
+  "author": "Padparadscho <contact@padparadscho.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/padparadscho/soroban-escrow-database.git"
+  },
+  "bugs": "https://github.com/padparadscho/soroban-escrow-database/issues",
+  "homepage": "https://github.com/padparadscho/soroban-escrow-database#readme",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "dotenv": "17.4.2",
+    "kysely": "0.28.16",
+    "pg": "8.20.0"
+  },
+  "devDependencies": {
+    "@types/node": "25.6.0",
+    "@types/pg": "8.20.0",
+    "kysely-codegen": "0.20.0",
+    "ts-node": "10.9.2",
+    "typescript": "6.0.3"
+  },
+  "packageManager": "pnpm@10.33.2"
+}
