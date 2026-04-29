@@ -1,0 +1,15 @@
+// SPDX-FileCopyrightText: 2026 Padparadscho <contact@padparadscho.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
+import { Kysely } from 'kysely';
+
+export async function up(db: Kysely<any>): Promise<void> {
+  await db.schema
+    .alterTable('events')
+    .addColumn('escrow_balance', 'varchar(50)')
+    .execute();
+}
+
+export async function down(db: Kysely<any>): Promise<void> {
+  await db.schema.alterTable('events').dropColumn('escrow_balance').execute();
+}
