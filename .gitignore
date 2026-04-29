@@ -11,3 +11,6 @@ Thumbs.db
 
 # Editor directories and files
 .vscode/
+
+# Pipelines
+pipelines/pipeline-testnet.yaml
