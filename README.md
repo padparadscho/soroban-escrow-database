@@ -56,7 +56,8 @@ cp .env.example .env
 
 ```bash
 # Create a secret
-# NEON_DB_SECRET is the name set in pipeline files, if renaming the secret, ensure to also modify corresponding files
+# NEON_DB_SECRET is the name set in pipeline files,
+# if renaming the secret, ensure to also modify corresponding files
 goldsky secret create
 
 # Validate
@@ -66,9 +67,15 @@ goldsky turbo validate pipelines/pipeline-mainnet.yaml
 goldsky turbo apply pipelines/pipeline-mainnet.yaml
 ```
 
-**Note**: Only new events and transactions will be processed after deployment. Historical data will not be backfilled, for this, use `pipelines/pipeline-backfill`.
+**Note**: Only new events and transactions will be processed after deployment. Historical data will not be backfilled. For this, use `pipelines/pipeline-backfill`.
 
 5. Run migrations:
+
+Pipelines create the initial tables, while migrations add supplementary columns:
+
+- `001-add-processed-column` — adds `processed` to `events` and `transfers`
+- `002-add-balance-column` — adds `escrow_balance` to `events`
+- `003-add-price-column` — adds `unit_price` to `events` and `transfers`
 
 ```bash
 # Run all pending migrations up
@@ -103,10 +110,9 @@ Optional Makefile shortcuts:
 
 ```bash
 make install            # Install dependencies
-make dev                # Run in development mode
-make build              # Build in production mode
-make start              # Build and start in production mode
-make typecheck          # Run type checker
+make migrate            # Run all pending migrations
+make migrate-down       # Roll back the last migration
+make migrate-list       # Show migration status
 make generate-schema    # Generate TypeScript types for database tables
 make lint               # Run linter
 make lint-fix           # Run linter with auto-fix
